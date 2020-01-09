@@ -1,0 +1,16 @@
+#! /bin/bash
+
+# Copyright (c) 2019, Thomas Museus Dabay
+# License: GNU General Public License Version 3 (GPL3)
+#           https://www.gnu.org/licenses/gpl.html
+
+# Setup Bluetooth so Mouse Doesn't Interfere with Speakers
+#
+
+if hciconfig hci0 lm ACCEPT,MASTER && hciconfig hci0 lp HOLD,SNIFF,PARK
+then exit 0
+else
+	echo 'Bluetooth mouse/speaker setup failed'
+	exit 1
+fi
+

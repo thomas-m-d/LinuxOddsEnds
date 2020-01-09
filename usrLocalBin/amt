@@ -1,0 +1,8 @@
+#! /bin/bash
+
+# Copyright (c) 2019, Thomas Museus Dabay
+# License: GNU General Public License Version 3 (GPL3)
+#           https://www.gnu.org/licenses/gpl.html
+
+#Connect Apple Magic Trackpad with Bluetooth
+echo -e 'connect D8:96:95:DE:16:BF\nquit\n' | bluetoothctl

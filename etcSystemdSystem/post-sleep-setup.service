@@ -1,0 +1,9 @@
+[Unit]
+Description=Run post-sleep-setup after sleeping
+After=suspend.target hibernate.target hybrid-sleep.target
+
+[Service]
+ExecStart=/usr/local/bin/post-sleep-setup
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target

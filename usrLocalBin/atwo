@@ -1,0 +1,15 @@
+#! /bin/bash
+
+# Copyright (c) 2019, Thomas Museus Dabay
+# License: GNU General Public License Version 3 (GPL3)
+#           https://www.gnu.org/licenses/gpl.html
+
+# Set JBL Flip 3 Speaker to A2DP Mode
+#
+
+if pactl set-default-sink bluez_sink.FC_A8_9A_DE_75_1D.a2dp_sink
+	then exit 0
+else
+	echo 'Error: PulseAudio setup failed'
+	exit 1
+fi

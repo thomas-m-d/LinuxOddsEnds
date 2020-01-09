@@ -1,0 +1,14 @@
+#! /bin/bash
+
+# Copyright (c) 2019, Thomas Museus Dabay
+# License: GNU General Public License Version 3 (GPL3)
+#           https://www.gnu.org/licenses/gpl.html
+
+# Close Protonmail-Bridge if Open, then Reopen It
+if pidof protonmail-bridge
+then 
+	kill $(pidof protonmail-bridge)
+fi
+if protonmail-bridge &
+then echo 'Opening PM Bridge'
+fi

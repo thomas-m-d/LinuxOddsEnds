@@ -1,0 +1,223 @@
+#! /bin/bash
+
+# Copyright (c) 2019, Thomas Museus Dabay
+# License: GNU General Public License Version 3 (GPL3)
+#           https://www.gnu.org/licenses/gpl.html
+
+#Enable, Disable, or Restart SystemD services protonvpn-f.service and/or protonvpn-p
+
+enable=0
+disable=0
+restart=0
+status=0
+help=0
+fast=0
+p2p=0
+
+echoHelp() {
+    echo -e '\tusage:\tvpn [-b] [-d] [-e] [-f] [-h] [-p] [-r]\n\n\thelp: \tvpn -h\n\t\tvpn --help\n\t\tvpn help\n\n\tdescription:\n\t\tenable, disable, or restart systemd services protonvpn-f.service and/or protonvpn-p2p.service. note that you must select at least one service option and one action option for this script to work\n\n\tservice options:\n\t\t-f: perform action on protonvpn-f.service, which connects to fastest vpn\n\t\t-p: perform action on protonvpn-p2p.service, which connects to peer-to-peer eligible vpn\n\t\t-b: perform action on both protonvpn-f.service and protonvpn-p2p.service\n\n\taction options:\n\t\t-e: enable selected service\n\t\t-d: disable selected service\n\t\t-r: restart selected service\n'
+    exit 0
+}
+
+echoStatusError() {
+    echo -e '\terror: cannot show status of both services\n'
+    exit 1
+}
+
+echoUsageError() {
+    echo -e '\tsyntax error\n\n\tusage:\tvpn [-b] [-d] [-e] [-f] [-h] [-p] [-r]\n\n\thelp:\tvpn -h\n\t\tvpn --help\n\t\tvpn help\n'
+    exit 1
+}
+
+echoEnableError() {
+    echo -e '\terror: cannot enable both services\n'
+    exit 1
+}
+
+echoActionError() {
+    echo -e '\terror: no action selected\n'
+    exit 1
+}
+
+echoServiceError() {
+    echo -e '\terror: no service selected\n'
+    exit 1
+}
+
+checkFast() {
+    if systemctl status protonvpn-f | grep -q 'Active: active'; then
+        echo -e '\terror: cannot enable protonvpn-p2p.service when protonvpn-f.service is active'
+        exit 1
+    fi
+}
+
+enableFast() {
+    if systemctl enable protonvpn-f 2> /dev/null && systemctl start protonvpn-f 2> /dev/null && systemctl daemon-reload 2> /dev/null; then
+        echo -e '\tsuccess: protonvpn-f.service enabled\n'
+        exit 0
+    else
+        echo -e '\terror: failed to enable protonvpn-f.service\n'
+        exit 1
+    fi
+}
+
+disableFast() {
+    if systemctl stop protonvpn-f 2> /dev/null && systemctl -q disable protonvpn-f 2> /dev/null && systemctl -q daemon-reload 2> /dev/null; then
+        echo -e '\tsuccess: protonvpn-f.service disabled\n'
+    else
+        echo -e '\terror: failed to disable protonvpn-f.service\n'
+        exit 1
+    fi
+}
+
+restartFast() {
+    if systemctl restart protonvpn-f 2> /dev/null && systemctl daemon-reload 2> /dev/null; then
+        echo -e '\tsuccess: protonvpn-f.service restarted\n'
+        exit 0
+    else
+        echo -e '\terror: failed to restart protonvpn-f.service\n'
+        exit 1
+    fi
+}
+
+statusFast() {
+    systemctl status protonvpn-f
+    exit 0
+}
+
+checkP2P() {
+    if systemctl status protonvpn-p2p | grep -q 'Active: active'; then
+        echo -e '\terror: cannot enable protonvpn-f.service when protonvpn-p2p.service is active'
+        exit 1
+    fi
+}
+
+enableP2P() {
+    if systemctl enable protonvpn-p2p 2> /dev/null && systemctl start protonvpn-p2p 2> /dev/null && systemctl daemon-reload 2> /dev/null; then
+        echo -e '\tsuccess: protonvpn-p2p.service enabled\n'
+        exit 0
+    else
+        echo -e '\terror: failed to enable protonvpn-p2p.service\n'
+        exit 1
+    fi
+}
+
+disableP2P() {
+    if systemctl stop protonvpn-p2p 2> /dev/null && systemctl -q disable protonvpn-p2p 2> /dev/null && systemctl -q daemon-reload 2> /dev/null; then
+        echo -e '\tsuccess: protonvpn-p2p.service disabled\n'
+    else
+        echo -e '\terror: failed to disable protonvpn-p2p.service\n'
+        exit 1
+    fi
+}
+
+restartP2P() {
+    if systemctl restart protonvpn-p2p 2> /dev/null && systemctl daemon-reload 2> /dev/null; then
+        echo -e '\tsuccess: protonvpn-p2p.service restarted\n'
+        exit 0
+    else
+        echo -e '\terror: failed to restart protonvpn-p2p.service\n'
+        exit 1
+    fi
+}
+
+statusP2P() {
+    systemctl status protonvpn-p2p
+    exit 0
+}
+
+if echo $1 | grep -q help
+then
+    echoHelp
+fi
+
+while getopts ":bdefhprs" opt; do
+    case $opt in
+        b ) 
+            fast=1
+            p2p=1;;
+        d ) 
+            disable=1;;
+        e )
+            enable=1 ;;
+        f )
+            fast=1 ;;
+        h )
+            echoHelp ;;
+        p )
+            p2p=1 ;;
+        r )
+            restart=1 ;;
+        s )
+            status=1 ;;
+        \? )
+            echoUsageError ;;
+    esac
+done
+
+if [ $status -eq 1 ]; then
+    if [ $fast -eq 1 ] && [ $p2p -eq 1 ]; then
+        echoStatusError
+    elif [ $fast -eq 1 ]; then
+        statusFast
+    elif [ $p2p -eq 1 ]; then
+        statusP2P
+    else
+        echoServiceError
+    fi
+elif ([ $enable -eq 1 ] || [ $restart -eq 1 ]) && [ $fast -eq 1 ] && [ $p2p -eq 1 ]; then
+    echoEnableError
+elif [ $restart -eq 1 ]; then
+    if [ $fast -eq 1 ]; then
+        restartFast
+    fi
+	
+    if [ $p2p -eq 1 ]; then
+        restartP2P
+    fi
+	
+    if [ $fast -eq 0 ] && [ $p2p -eq 0 ]; then
+        echoServiceError
+    fi
+elif [ $disable -eq 1 ] && [ $enable -eq 1 ]; then
+    if [ $fast -eq 1 ]; then
+        restartFast
+    fi
+	
+    if [ $p2p -eq 1 ]; then
+        restartP2P
+    fi
+	
+    if [ $fast -eq 0 ] && [ $p2p -eq 0 ]; then
+        echoServiceError
+    fi
+elif [ $disable -eq 1 ]; then
+    if [ $fast -eq 1 ]; then
+        disableFast
+    fi
+	
+    if [ $p2p -eq 1 ]; then
+        disableP2P
+    fi
+	
+    if [ $fast -eq 0 ] && [ $p2p -eq 0 ]; then
+        echoServiceError
+    fi
+    exit 0
+elif [ $enable -eq 1 ]; then
+    if [ $fast -eq 1 ]; then
+        checkP2P
+        enableFast
+    fi
+	
+    if [ $p2p -eq 1 ]; then
+        checkFast
+        enableP2P
+    fi
+	
+    if [ $fast -eq 0 ] && [ $p2p -eq 0 ]; then
+        echoServiceError
+    fi
+else
+    echoActionError
+fi

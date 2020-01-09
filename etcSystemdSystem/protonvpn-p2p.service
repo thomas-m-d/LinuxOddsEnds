@@ -1,0 +1,14 @@
+[Unit]
+Description=ProtonVPN Auto-Start
+After=network.target
+
+[Service]
+Type=forking
+User=root
+ExecStart=/usr/bin/pvpn -p2p
+ExecReload=/usr/bin/pvpn -d && /usr/bin/pvpn -p2p
+ExecStop=/usr/bin/pvpn -d
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

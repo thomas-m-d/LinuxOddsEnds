@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# Copyright (c) 2019, Thomas Museus Dabay
+# License: GNU General Public License Version 3 (GPL3)
+#           https://www.gnu.org/licenses/gpl.html
+
+# Call various setup scripts
+# For use as a systemd .service that runs after awakening from sleep
+#
+
+sleep 5s
+amt
+btint
+
+#Disconnect VPN so protonvpn-cli.service reconnects
+pvpn -d
+
+
