@@ -1,13 +1,13 @@
 [Unit]
 Description=ProtonVPN Auto-Start
-After=network.target
+Wants=network-online.target
 
 [Service]
 Type=forking
-User=root
-ExecStart=/usr/bin/pvpn -p2p
-ExecReload=/usr/bin/pvpn -d && /usr/bin/pvpn -p2p
-ExecStop=/usr/bin/pvpn -d
+ExecStart=/usr/bin/protonvpn c -f
+Environment=PVPN_WAIT=150
+Environment=PVPN_DEBUG=1
+Environment=SUDO_USER=thomas
 Restart=always
 
 [Install]

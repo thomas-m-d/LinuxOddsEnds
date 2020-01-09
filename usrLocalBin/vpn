@@ -15,7 +15,7 @@ fast=0
 p2p=0
 
 echoHelp() {
-    echo -e '\tusage:\tvpn [-b] [-d] [-e] [-f] [-h] [-p] [-r]\n\n\thelp: \tvpn -h\n\t\tvpn --help\n\t\tvpn help\n\n\tdescription:\n\t\tenable, disable, or restart systemd services protonvpn-f.service and/or protonvpn-p2p.service. note that you must select at least one service option and one action option for this script to work\n\n\tservice options:\n\t\t-f: perform action on protonvpn-f.service, which connects to fastest vpn\n\t\t-p: perform action on protonvpn-p2p.service, which connects to peer-to-peer eligible vpn\n\t\t-b: perform action on both protonvpn-f.service and protonvpn-p2p.service\n\n\taction options:\n\t\t-e: enable selected service\n\t\t-d: disable selected service\n\t\t-r: restart selected service\n'
+    echo -e '\tusage:\tvpn [-b] [-d] [-e] [-f] [-h] [-p] [-r] [-s]\n\n\thelp: \tvpn -h\n\t\tvpn --help\n\t\tvpn help\n\n\tdescription:\n\t\tenable, disable, or restart systemd services protonvpn-f.service and/or protonvpn-p2p.service. note that you must select at least one service option and one action option for this script to work\n\n\tservice options:\n\t\t-f: perform action on protonvpn-f.service, which connects to fastest vpn\n\t\t-p: perform action on protonvpn-p2p.service, which connects to peer-to-peer eligible vpn\n\t\t-b: perform action on both protonvpn-f.service and protonvpn-p2p.service\n\n\taction options:\n\t\t-e: enable selected service\n\t\t-d: disable selected service\n\t\t-r: restart selected service\n\t\t-s: show systemctl status of selected service\n'
     exit 0
 }
 
