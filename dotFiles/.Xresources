@@ -1,0 +1,72 @@
+! Xterm Terminal Emulator Config File ===================================
+!
+!
+! Based on: 
+! https://github.com/gotbletu/shownotes/blob/master/xterm_xresources.md
+! https://wiki.archlinux.org/index.php/Xterm#Configuration
+! https://draculatheme.com/xresources/
+!
+! ========================================================================
+
+
+! Set terminfo name (options: xterm, xterm-256color) --------------------
+*.termName: xterm-256color
+
+! Font Setup ------------------------------------------------------------
+xterm.vt100.faceName: Source Code Pro
+xterm.vt100.faceSize: 13
+xterm.vt100.faceSize1: 8
+xterm.vt100.faceSize2: 10
+xterm.vt100.faceSize3: 12
+xterm.vt100.faceSize4: 16
+xterm.vt100.faceSize5: 22
+xterm.vt100.scaleHeight: 1
+
+! Ensure locale is setup for UTF-8
+XTerm.vt100.locale: true
+
+! Cursor Setup -----------------------------------------------------------
+xterm.vt100.pointerColor: white
+xterm.vt100.pointerColorBackground: black
+xterm.vt100.cursorColor: white
+xterm.vt100.cursorBlink: false
+
+! Text Selection Setup ---------------------------------------------------
+xterm.vt100.highlightSelection: true
+xterm.vt100.trimSelection: true
+
+! Scroll Setup -----------------------------------------------------------
+xterm.vt100.saveLines: 16384
+
+! Keybindings ------------------------------------------------------------
+xterm.vt100.translations: #override \
+    Ctrl <Key> minus: smaller-vt-font() \n\
+    Ctrl <Key> plus: larger-vt-font() \n\
+    Ctrl Shift <Key> C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key> V: insert-selection(CLIPBOARD)
+
+xterm.vt100.fullscreen: never
+xterm.vt100.backarrowKey: false
+xterm.vt100.ttyModes: erase ^?
+
+
+! Theme: Dracula ---------------------------------------------------------
+! ------------------------------------------------------------------------
+*.foreground: #f8f8f2
+*.background: #282a36
+*.color0: #000000
+*.color8: #4d4d4d
+*.color1: #ff5555
+*.color9: #ff6e67
+*.color2: #50fa7b
+*.color10: #5af78e
+*.color3: #f1fa8c
+*.color11: #f4f99d
+*.color4: #bd93f9
+*.color12: #caa9fa
+*.color5: #ff79c6
+*.color13: #ff92d0
+*.color6: #8be9fd
+*.color14: #9aedfe
+*.color7: #bfbfbf
+*.color15: #e6e6e6

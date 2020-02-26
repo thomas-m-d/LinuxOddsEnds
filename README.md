@@ -2,10 +2,13 @@
 This repo contains various files related to my Linux install.
 
 # Contents
-etcSystemdSystem - systemd services located in my /etc/systemd/system directory
-tildeDotconfigNvim - Vimscript config file for my Neovim, located in ~/.config/nvim directory
-tildeDotspacemacs.d - Elisp config file for my Spacemacs-based Emacs, located in ~/.spacemacs.d directory 
-usrLocalBin - BASH helper scripts located in my /usr/local/bin directory
+dotFiles - dot files for various programs
+	init.vim: NeoVim (~/.config/nvim/)
+	init.el: Emacs/Spacemacs (~/.spacemacs.d/)
+	.Xresources: Xorg (~/)
+	.bashrc: Bash (~/)
+scripts - BASH helper scripts (/usr/local/bin)
+systemd - systemd services (/etc/systemd/system/)
 
 #License
 Note that everything in this repo is licensed under the GNU GPLv3.
