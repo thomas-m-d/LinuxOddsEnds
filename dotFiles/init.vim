@@ -26,7 +26,6 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusLine = ''
-Plug 'bling/vim-bufferline'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'tpope/vim-eunuch'
 
@@ -64,6 +63,10 @@ set tabstop=2
 set shiftwidth=2
 
 hi CursorLine cterm=bold ctermbg=8
+
+" Mappings
+nnoremap ^ 0
+nnoremap 0 ^
 
 " Leader Mappings
 nnoremap <Space> <NOP>
