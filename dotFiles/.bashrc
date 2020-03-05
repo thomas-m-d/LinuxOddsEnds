@@ -25,6 +25,10 @@ alias sctl='systemctl'
 alias jctl='journalctl'
 alias bctl='bluetoothctl'
 alias pac='pacman'
+alias ga='git add'
+alias gc='git commit'
+alias gpush='git push'
+alias gpull='git pull'
 
 export EDITOR=/usr/bin/nvim
 export NNN_USE_EDITOR=1
