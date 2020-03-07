@@ -1,0 +1,11 @@
+#! /bin/bash
+
+# Description: Setup terminal for use with i3's scratchpad
+# Copyright (c) 2020, Thomas Museus Dabay
+# License: GNU General Public License Version 3 (GPL3)
+#           https://www.gnu.org/licenses/gpl.html
+
+i3-msg floating toggle
+i3-msg resize set 1250 360
+i3-msg move position 335px 0px
+i3-msg move scratchpad

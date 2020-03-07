@@ -1,0 +1,56 @@
+#! /bin/bash
+
+# Description: Open and arrange startup programs for i3wm
+# Copyright (c) 2020, Thomas Museus Dabay
+# License: GNU General Public License Version 3 (GPL3)
+#           https://www.gnu.org/licenses/gpl.html
+ 
+
+# Open Firefox (and let it load webpages)
+firefox &
+sleep 1
+
+# Open and Format Scratchpad Terminal
+xterm &
+sleep 1
+i3-msg "[instance="xterm"] move scratchpad"
+sleep 1
+i3-msg "[instance="xterm"] resize set 1250 350"
+sleep 1
+i3-msg "[instance="xterm"] move position 335px 0px"
+sleep 1
+
+# Setup Workspace 4 (Coding)
+xterm &
+sleep 1
+i3-msg [title="thomas"] move to workspace "4: Coding"
+sleep 1
+
+# Setup Workspace 9 (Background Processes)
+keepassxc &
+sleep 3
+i3-msg [class="KeePassXC"] move to workspace "9: Background"
+sleep 1
+
+# Hide Scratchpad Terminal
+i3-msg workspace "4: Coding"
+sleep 1
+i3-msg "[instance="xterm"] scratchpad show"
+sleep 1
+
+# Setup Workspace 2 (Casual Web Browser) and Workspace 1 (Email)
+i3-msg [class="firefox"] move to workspace "2: Web"
+sleep 1
+i3-msg [title="Gmail"] move to workspace "1: Mail"
+sleep 1
+i3-msg [title="ProtonMail"] move to workspace "1: Mail"
+sleep 1
+
+# Setup Workspace 8 (Media)
+vlc &
+sleep 3
+i3-msg [class="vlc"] move to workspace "8: Media"
+sleep 1
+
+# Focus Workspace 2
+i3-msg workspace "2: Web"
