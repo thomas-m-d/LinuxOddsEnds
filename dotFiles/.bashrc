@@ -11,6 +11,7 @@ shopt -s autocd
 alias sudo='sudo '
 alias s='sudo '
 alias pvpn='protonvpn'
+alias pvr='protonvpn r'
 alias x='startx'
 alias nnn='nnn -H'
 alias ls='ls -a --color=always'
