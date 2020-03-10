@@ -27,7 +27,6 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusLine = ''
 Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'tpope/vim-eunuch'
 
 " Fuzzy Search
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -81,11 +80,14 @@ map <leader>h :wincmd h<CR>
 map <leader>j :wincmd j<CR>
 map <leader>k :wincmd k<CR>
 map <leader>l :wincmd l<CR>
+" Remove Search Highlighting
+map <leader>n :noh <CR>
 
 
 
 " Denite Setup
 " Source: https://github.com/ctaylo21/jarvis/blob/master/config/nvim/init.vim
+" Note: I have added my own <Tab> and <S-Tab> mappings.
 
 " Wrap in try/catch to avoid errors on initial install before plugin is available
 try
@@ -131,7 +133,7 @@ let s:denite_options = {'default' : {
 \ 'start_filter': 1,
 \ 'auto_resize': 1,
 \ 'source_names': 'short',
-\ 'prompt': 'λ ',
+\ 'prompt': '/',
 \ 'highlight_matched_char': 'QuickFixLine',
 \ 'highlight_matched_range': 'Visual',
 \ 'highlight_window_background': 'Visual',
@@ -155,14 +157,28 @@ catch
 endtry
 
 " === Denite shorcuts === "
-"   ;         - Browser currently open buffers
-"   <leader>t - Browse list of files in current directory
-"   <leader>g - Search current directory for occurences of given term and close window if no results
-"   <leader>j - Search current directory for occurences of word under cursor
-nmap ; :Denite buffer<CR>
-nmap <leader>t :DeniteProjectDir file/rec<CR>
-nnoremap <leader>g :<C-u>Denite grep:. -no-empty<CR>
-nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
+"   ;         - Save buffer and Browser currently open buffers
+"   <leader>S - Search current directory for occurences of given term and close window if no results
+"   <leader>s - Search current directory for occurences of word under cursor
+nmap ; :w \| Denite buffer<CR>
+nnoremap <leader>S :<C-u>Denite grep:. -no-empty<CR>
+nnoremap <leader>s :<C-u>DeniteCursorWord grep:.<CR>
+
+" Denite Tab/S-Tab Wrapping Functions
+function! s:down_wrap()
+	if line('.') == line('$')
+		normal! gg
+	else
+		normal! j
+	endif
+endfunction
+function! s:up_wrap()
+	if line('.') == 1
+		normal! G
+	else
+		normal! k
+	endif
+endfunction
 
 " Define mappings while in 'filter' mode
 "   <C-o>         - Switch to normal mode inside of search results
@@ -171,6 +187,8 @@ nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
 "   <C-t>         - Open currently selected file in a new tab
 "   <C-v>         - Open currently selected file a vertical split
 "   <C-h>         - Open currently selected file in a horizontal split
+"   <Tab>					- Select next file
+"   <S-Tab>				- Select previous file
 autocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o>
@@ -187,6 +205,10 @@ function! s:denite_filter_my_settings() abort
   \ denite#do_map('do_action', 'vsplit')
   inoremap <silent><buffer><expr> <C-h>
   \ denite#do_map('do_action', 'split')
+	imap <silent><buffer> <Tab>
+				\ <Plug>(denite_filter_quit):call <SID>down_wrap()<CR>i
+	imap <silent><buffer> <S-Tab>
+				\ <Plug>(denite_filter_quit):call <SID>up_wrap()<CR>i
 endfunction
 
 " Define mappings while in denite window
@@ -198,6 +220,8 @@ endfunction
 "   <C-t>       - Open currently selected file in a new tab
 "   <C-v>       - Open currently selected file a vertical split
 "   <C-h>       - Open currently selected file in a horizontal split
+"   <Tab>				- Select next file and return to filter mode
+"   <S-Tab>			- Select previous file and return to filter mode
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <CR>
@@ -220,4 +244,6 @@ function! s:denite_my_settings() abort
   \ denite#do_map('do_action', 'vsplit')
   nnoremap <silent><buffer><expr> <C-h>
   \ denite#do_map('do_action', 'split')
+	nmap <silent><buffer> <Tab> :call <SID>down_wrap()<CR>i
+	nmap <silent><buffer> <S-Tab> :call <SID>up_wrap()<CR>i
 endfunction
