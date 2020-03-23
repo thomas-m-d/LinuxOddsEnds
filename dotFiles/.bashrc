@@ -31,6 +31,7 @@ alias gc='git commit'
 alias gpush='git push'
 alias gpull='git pull'
 
+export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
 export NNN_USE_EDITOR=1
 export NNN_CONTEXT="1234"
