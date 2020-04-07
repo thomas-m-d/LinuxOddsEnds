@@ -30,6 +30,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gpush='git push'
 alias gpull='git pull'
+alias hgrep='history | grep'
 
 export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
