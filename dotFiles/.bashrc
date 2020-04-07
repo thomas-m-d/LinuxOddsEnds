@@ -11,7 +11,7 @@ shopt -s autocd
 alias sudo='sudo '
 alias s='sudo '
 alias pvpn='protonvpn'
-alias vr='protonvpn r'
+alias pvr='protonvpn r'
 alias x='startx'
 alias nnn='nnn -H'
 alias ls='ls -a --color=always'
@@ -30,7 +30,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gpush='git push'
 alias gpull='git pull'
-alias hgrep='history | grep'
+alias hgrep='history | grep '
 
 export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
