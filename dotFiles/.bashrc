@@ -39,5 +39,5 @@ export NNN_USE_EDITOR=1
 export NNN_CONTEXT="1234"
 export PS1="\[$(tput bold)\]\[\033[38;5;153m\][\u@\h \W]\[$(tput sgr0)\]\$ "
 
-export piaddr="192.168.1.166"
-export delladdr="192.168.1.99"
+export PIADDR="192.168.1.166"
+export S76ADDR="192.168.1.175"
