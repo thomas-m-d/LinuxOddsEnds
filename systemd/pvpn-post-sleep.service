@@ -1,0 +1,9 @@
+[Unit]
+Description=Run post-sleep-setup after sleeping
+After=suspend.target hibernate.target hybrid-sleep.target
+
+[Service]
+ExecStart=sudo usr/local/bin/protonvpn r
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target
