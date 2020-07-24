@@ -31,8 +31,10 @@ alias ga='git add'
 alias gc='git commit'
 alias gpush='git push'
 alias gpull='git pull'
+alias glog='git log'
 alias hgrep='history | grep '
 alias mkdir='mkdir -p'
+alias cmus='cd ~/music && cmus && cd -'
 
 export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
