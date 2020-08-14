@@ -35,6 +35,8 @@ alias glog='git log'
 alias hgrep='history | grep '
 alias mkdir='mkdir -p'
 alias cmus='cd ~/music && cmus && cd -'
+alias grep='grep --color'
+alias mocp='mocp -T=nightly_theme'
 
 export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
@@ -44,3 +46,5 @@ export PS1="\[$(tput bold)\]\[\033[38;5;153m\][\u@\h \W]\[$(tput sgr0)\]\$ "
 
 export PIADDR="192.168.1.166"
 export S76ADDR="192.168.1.175"
+
+export PATH=$PATH:/home/thomas/.local/bin
