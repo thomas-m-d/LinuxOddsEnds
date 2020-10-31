@@ -45,7 +45,4 @@ export NNN_CONTEXT="1234"
 export NNN_PLUG="s:suedit;u:uidgid;i:imgview;d:diffs"
 export PS1="\[$(tput bold)\]\[\033[38;5;153m\][\u@\h \W]\[$(tput sgr0)\]\$ "
 
-export PIADDR="192.168.1.166"
-export S76ADDR="192.168.1.175"
-
 export PATH=$PATH:/home/thomas/.local/bin
